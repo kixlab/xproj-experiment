@@ -129,9 +129,13 @@ const store = () => new Vuex.Store({
     ],
     prompts: [
       {
-        promptContent: '주위에 이 공약으로 혜택을 받을 수 있는 사람이 있으신가요?',
-        type: 'openended',
-        // options: ['20대 취업준비생', '30대 직장인', '60대 연금수급자']
+        promptContent: '가족이나 친구, 혹은 본인 중 이 공약과 연관된 사람이 있나요??',
+        type: 'options',
+        options: ['예', '아니오']
+      }, 
+      {
+        promptContent: `이 공약에 대한 다음 설명 중 맞는 것을 모두 골라주세요.`,
+        type: 'multiplechoice'
       }, 
       {
         promptContent: `이 공약을 이행하기 위해 필요한 4년간 총 예산은 대략 얼마일까요?
@@ -142,12 +146,13 @@ const store = () => new Vuex.Store({
         options: ['50억원', '100억원', '500억원', '1000억원', '5000억원']
       },
       {
-        promptContent: `이 공약을 초등학교 1학년 아이에게 설명해야 한다면, 어떻게 설명하실 것인가요?`,
-        type: 'openended'
-      }, 
-      {
-        promptContent: `다음은 이 공약에 대한 찬성/반대 의견입니다. 이 공약에 대해 어떻게 생각하시나요?`,
+        promptContent: `다음은 언론이 보도한 이 공약의 긍정적/부정적 측면입니다. 동의하시는 항목을 모두 선택해주세요.`,
         type: 'proscons'
+      },
+      {
+        promptContent: '이 공약을 이행하는 것을 찬성하시나요?',
+        type: 'options',
+        options: ['예', '아니오']
       }
       // {
       //   promptContent: '이 공약은 서울시의 어떤 문제를 해결하기 위한 공약이라고 생각하시나요?',
