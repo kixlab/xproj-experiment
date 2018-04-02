@@ -12,13 +12,13 @@
             <dd v-for="goal in promise.goals" :key="goal">{{goal}}</dd>
             <dt>주요 정책</dt>
             <dd v-for="plan in promise.plans" :key="plan">{{plan}}</dd>
-            <!-- <dt>관련 기사</dt>
-            <dd v-for="article in promise.additionalInfo" :key="article.title">
+            <dt>관련 기사</dt>
+            <dd v-for="article in promise.links" :key="article.title">
               <a :href="article.link">{{article.title}}</a>
-            </dd> -->
+            </dd>
           </dl>
         </div>
-        <prompt-pane v-if="isPromptVisible"></prompt-pane>
+        <prompt-pane v-if="isPromptVisible" :promise="promise"></prompt-pane>
         <!-- <div class="promptContent">{{promptContent}}</div> -->
       </div>
     </b-col>
