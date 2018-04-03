@@ -11,7 +11,8 @@
       </div>
       <div class="promptPaneAction">
         <prompt-pane-action-openended v-if="prompt.type === 'openended'" @next-prompt="onNextPrompt"></prompt-pane-action-openended>
-        <prompt-pane-action-options v-else-if="prompt.type === 'options'" :options="prompt.options" @next-prompt="onNextPrompt"></prompt-pane-action-options>
+        <prompt-pane-action-options v-else-if="prompt.type === 'options'" :options="prompt.options" @next-prompt="onNextPrompt"></prompt-pane-action-options>        
+        <prompt-pane-action-budget v-else-if="prompt.type === 'budget'" :budget="promise.budget" :options="prompt.options" @next-prompt="onNextPrompt"></prompt-pane-action-budget>
         <prompt-pane-action-rating v-else-if="prompt.type === 'rating'" :max-rating="prompt.maxRating" @next-prompt="onNextPrompt"></prompt-pane-action-rating>
         <prompt-pane-action-pros-cons v-else-if="prompt.type === 'proscons'" :pros="promise.pros" :cons="promise.cons" @next-prompt="onNextPrompt"></prompt-pane-action-pros-cons>
         <prompt-pane-action-multiple-choice v-else-if="prompt.type === 'multiplechoice'" :options="promise.choices" @next-prompt="onNextPrompt"></prompt-pane-action-multiple-choice>
@@ -26,6 +27,7 @@ import PromptPaneActionOptions from '~/components/PromptPaneActionOptions.vue'
 import PromptPaneActionRating from '~/components/PromptPaneActionRating.vue'
 import PromptPaneActionProsCons from '~/components/PromptPaneActionProsCons.vue'
 import PromptPaneActionMultipleChoice from '~/components/PromptPaneActionMultipleChoice.vue'
+import PromptPaneActionBudget from '~/components/PromptPaneActionBudget.vue'
 import db from '~/firebase.js'
 
 export default {
@@ -37,7 +39,8 @@ export default {
     PromptPaneActionOptions,
     PromptPaneActionRating,
     PromptPaneActionProsCons,
-    PromptPaneActionMultipleChoice
+    PromptPaneActionMultipleChoice,
+    PromptPaneActionBudget
   },
   computed: {
     prompts: function () {

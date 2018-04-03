@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     nextPromise: function () {
-      if(this.id == 2) {
+      if(this.id == (this.$store.state.promises.length - 1)) {
         this.$router.push({name: 'PostTest'})
       } else {
         this.$router.push({name: 'ArticlePromptView-id', params: {id: this.id + 1}})
