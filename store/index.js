@@ -158,7 +158,7 @@ const store = () => new Vuex.Store({
     ],
     prompts: [
       {
-        promptContent: '가족이나 친구, 혹은 본인 중 이 공약과 연관된 사람이 있나요?',
+        promptContent: '가족이나 친구, 혹은 본인 중 이 공약과 직/간접적으로 연관된 사람이 있나요?',
         type: 'options',
         options: ['예', '아니오']
       }, 

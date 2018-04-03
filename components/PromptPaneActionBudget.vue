@@ -4,7 +4,7 @@
       <b-button v-for="option in options" :key="option" @click="onBudgetClick(option)">{{option}}억원</b-button>
     </div>
     <div v-else>
-      이 공약에 사용된 예산은 {{budget}}억원입니다. 
+      이 공약에 실제 사용된 예산은 {{budget}}억원입니다. 
       <br>
       <b-button @click="onNextClick">다음</b-button>
     </div>
