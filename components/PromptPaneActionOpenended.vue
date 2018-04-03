@@ -19,6 +19,7 @@ export default {
   methods: {
     onButtonClick: function () {
       this.$emit('next-prompt', {text: this.text})
+      this.text = ''
     }
   }
 }

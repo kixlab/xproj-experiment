@@ -111,8 +111,31 @@ const store = () => new Vuex.Store({
           '광화문광장 재구조화 사업'
         ],
         links: [
-
-        ]
+          {
+            title: '4대문안 ‘교통 다이어트’…모든 차도, 4~6차로로 줄인다',
+            link: 'http://www.hani.co.kr/arti/society/area/834655.html'
+          }, 
+          {
+            title: `서울 줄줄이 '도로 다이어트'… 도심교통 괜찮을까`,
+            link: 'http://news.hankyung.com/article/2017121079091' 
+          },
+          {
+            title: '사대문안 도로줄여 친환경 도시로..',
+            link: 'http://radio.ytn.co.kr/program/?f=2&id=54655&s_mcd=0201&s_hcd=09'
+          }
+        ],
+        pros: [
+          '도심 내 차량 감소를 통한 미세먼지 감축',
+          '보행 공간, 자전거 도로 및 문화 활동 공간 확충',
+          '조업시설을 위한 공간 확보'
+        ],
+        cons: [
+          '도심 교통 혼잡 증대'
+        ],
+        choices: [
+          ''
+        ],
+        budget: 484.3
       },
       {
         title: '음악으로 지키는 안전한 우리 동네!',
