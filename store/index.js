@@ -161,10 +161,10 @@ const store = () => new Vuex.Store({
         type: 'options',
         options: ['예', '아니오']
       }, 
-      {
-        promptContent: `이 공약에 대한 다음 설명 중 맞는 것을 모두 골라주세요.`,
-        type: 'multiplechoice'
-      }, 
+      // {
+      //   promptContent: `이 공약에 대한 다음 설명 중 맞는 것을 모두 골라주세요.`,
+      //   type: 'multiplechoice'
+      // }, 
       {
         promptContent: `이 공약을 이행하기 위해 필요한 4년간 총 예산은 대략 얼마일까요?
         ※ 2018년 서울시 예산: 28조 179억원
