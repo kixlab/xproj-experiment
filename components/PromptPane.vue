@@ -12,6 +12,7 @@
       <div class="promptPaneAction">
         <prompt-pane-action-openended v-if="prompt.type === 'openended'" @next-prompt="onNextPrompt"></prompt-pane-action-openended>
         <prompt-pane-action-options v-else-if="prompt.type === 'options'" :options="prompt.options" @next-prompt="onNextPrompt"></prompt-pane-action-options>
+        <prompt-pane-action-budget v-else-if="prompt.type === 'budget'" :options="prompt.options" :budget="promise.budget" @next-prompt="onNextPrompt"></prompt-pane-action-budget>
         <prompt-pane-action-rating v-else-if="prompt.type === 'rating'" :max-rating="prompt.maxRating" @next-prompt="onNextPrompt"></prompt-pane-action-rating>
       </div>
     </div>
@@ -22,13 +23,19 @@
 import PromptPaneActionOpenended from '~/components/PromptPaneActionOpenended.vue'
 import PromptPaneActionOptions from '~/components/PromptPaneActionOptions.vue'
 import PromptPaneActionRating from '~/components/PromptPaneActionRating.vue'
+import PromptPaneActionBudget from '~/components/PromptPaneActionBudget.vue'
+
 import db from '~/firebase.js'
 
 export default {
+  props: {
+    promise: Object
+  },
   components: {
     PromptPaneActionOpenended,
     PromptPaneActionOptions,
-    PromptPaneActionRating
+    PromptPaneActionRating,
+    PromptPaneActionBudget
   },
   computed: {
     prompts: function () {

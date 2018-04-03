@@ -18,7 +18,7 @@
             </dd>
           </dl>
         </div>
-        <prompt-pane v-if="isPromptVisible"></prompt-pane>
+        <prompt-pane v-if="isPromptVisible" :promise="promise"></prompt-pane>
         <!-- <div class="promptContent">{{promptContent}}</div> -->
       </div>
     </b-col>
