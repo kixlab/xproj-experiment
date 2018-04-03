@@ -124,6 +124,18 @@ const store = () => new Vuex.Store({
             link: 'http://radio.ytn.co.kr/program/?f=2&id=54655&s_mcd=0201&s_hcd=09'
           }
         ],
+        pros: [
+          '도심 내 차량 감소를 통한 미세먼지 감축',
+          '보행 공간, 자전거 도로 및 문화 활동 공간 확충',
+          '조업시설을 위한 공간 확보'
+        ],
+        cons: [
+          '도심 교통 혼잡 증대'
+        ],
+        choices: [
+          ''
+        ],
+        budget: 484.3
       },
       // {
       //   title: '음악으로 지키는 안전한 우리 동네!',
@@ -140,7 +152,7 @@ const store = () => new Vuex.Store({
     ],
     prompts: [
       {
-        promptContent: '주위에 이 공약과 연관있는 사람이 있나요? 있다면 누구인지, 그리고 이 공약이 어떻게 그 사람에게 영향을 주는지 적어주세요.',
+        promptContent: '주위에 이 공약과 직/간접적으로 연관있는 사람이 있나요? 있다면 누구인지, 그리고 이 공약이 어떻게 그 사람에게 영향을 주는지 적어주세요.',
         type: 'openended',
       }, 
       {
@@ -148,11 +160,11 @@ const store = () => new Vuex.Store({
         type: 'openended'
       }, 
       {
-        promptContent: `이 공약을 이행하기 위해 필요한 4년간 총 예산은 대략 얼마일까요?
+        promptContent: `이 공약을 이행하기 위해 필요한 4년간 총 예산은 대략 얼마일까요? 왜 그렇게 생각하셨나요?
         ※ 2018년 서울시 예산: 28조 179억원
         ※ 서울로 7017 프로젝트 총 사업비: 647억원
         `,
-        type: 'openended',
+        type: 'budget',
       },
       {
         promptContent: '이 공약의 긍정적인 효과는 무엇이 있을까요?',
@@ -164,10 +176,9 @@ const store = () => new Vuex.Store({
       },
       {
         promptContent: `이 공약에 대해 어떻게 생각하시나요? 찬성/반대 입장을 선택하고, 그 이유를 적어주세요.`,
-        type: 'openended'
+        type: 'yesno'
       }
     ],
-    // responses: []
   },
   mutations: {
     setUserId: function (state, payload) {
