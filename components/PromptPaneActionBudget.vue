@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!isAnswered">
-      <b-button class="budgetButton" v-for="option in options" :key="option" :variant="selectedBudget === option ? 'primary' : 'primary-outline'" @click="onBudgetClick(option)">{{option}}억원</b-button>
+      <b-button class="budgetButton" v-for="option in options" :key="option" @click="onBudgetClick(option)" :variant="selectedBudget === option ? 'primary' : 'primary-outline'">{{option}}억원</b-button>
       <!-- <b-input-group>
         <b-form-input v-model="text" placeholder="이유를 적어주세요"></b-form-input>
         <b-input-group-append>
@@ -14,7 +14,7 @@
     <div v-else>
       이 공약에 실제 사용된 예산은 {{budgetString}}입니다. 
       <br>
-      <b-button class="budgetButton" @click="onNextClick" variant="primary">다음 질문 보기</b-button>
+      <b-button class="nextButton" @click="onNextClick" variant="primary">다음 질문 보기</b-button>
     </div>
   </div>
 </template>
@@ -26,14 +26,14 @@ export default {
   },
   computed: {
     budgetString: function () {
-      let int = Math.floor(budget)
-      let fraction = Math.floor((budget - int) * 1000)
+      let int = Math.floor(this.budget)
+      let fraction = (this.budget * 10 - int * 10) * 1000
       if (int === 0 && fraction !== 0) {
-        return `${fraction}천만원`
+        return `${fraction}만원`
       } else if (int !== 0 && fraction === 0) {
         return `${int}억원`
       } else if (int !== 0 && fraction !== 0) {
-        return `${int}억 ${fraction}천만원`
+        return `${int}억 ${fraction}만원`
       } else {
         return ''
       }
@@ -62,7 +62,11 @@ export default {
 <style scoped>
 
 .budgetButton {
-  margin: 1em;
+  margin: 1em 0.5em;
+}
+
+.nextButton {
+  margin-top: 1em;
 }
 </style>
 
