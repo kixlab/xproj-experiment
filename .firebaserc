@@ -1,10 +1,6 @@
 {
   "projects": {
-<<<<<<< HEAD
-    "default": "xproj-heavy"
-=======
     "default": "xproj-experiment",
     "heavy": "xproj-heavy"
->>>>>>> master
   }
 }
