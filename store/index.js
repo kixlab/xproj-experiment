@@ -229,11 +229,19 @@ const store = () => new Vuex.Store({
         type: 'yesno'
       }
     ],
+    promptIdx: 0
+    // responses: []
   },
   mutations: {
     setUserId: function (state, payload) {
       state.userId = payload.userId
     },
+    incrementPromptIdx: function (state) {
+      state.promptIdx += 1
+    },
+    resetPromptIdx: function (state) {
+      state.promptIdx = 0
+    }
     // ...firebaseMutations
   },
   // actions: {

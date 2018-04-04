@@ -26,6 +26,7 @@
 </template>
 <script>
 import PromptPane from '~/components/PromptPane.vue'
+import db from '~/firebase.js'
 
 export default {
   props: {
@@ -42,7 +43,9 @@ export default {
   },
   methods: {
     onLinkClick: function (title) {
-      alert(title)
+      // alert('adsf')
+      db.ref('responses/' + this.$store.state.userId + '/' + this.$route.params.id + '/' + this.$store.state.promptIdx + '/links').push(title)
+
     }
   }
 }
