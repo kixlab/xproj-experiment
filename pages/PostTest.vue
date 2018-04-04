@@ -14,13 +14,14 @@ export default {
       return this.$store.state.userId
     },
     surveyTarget: function () {
-      if (this.userId % 3 === 0) {
-        return 'https://goo.gl/forms/bow3L13Bbg68earz2'
-      } else if (this.userId % 3 === 1) {
-        return 'https://goo.gl/forms/ZwR3R58jEJUSeCB62'
-      } else {
-        return 'https://goo.gl/forms/U45JDBPOkDaAnotN2'
-      }
+      // if (this.userId % 3 === 0) {
+      //   return 'https://goo.gl/forms/bow3L13Bbg68earz2'
+      // } else if (this.userId % 3 === 1) {
+      //   return 'https://goo.gl/forms/ZwR3R58jEJUSeCB62'
+      // } else {
+      //   return 'https://goo.gl/forms/U45JDBPOkDaAnotN2'
+      // }
+      return 'https://goo.gl/forms/zdUYC5NvGMf4U7gs2'
     }
   }
 }

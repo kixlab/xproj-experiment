@@ -5,7 +5,7 @@
       이 실험은 본 실험과 실험 전/후의 설문조사로 이루어져 있습니다. 실험과 설문조사를 모두 합쳐 약 30-40분 정도 소요될 예정입니다.
     </p>
     
-    <p>실험을 시작하기 전, <a href="https://goo.gl/forms/RrbzB5nCrMvxlfsJ2" target="_blank"><span class="userId">설문조사</span></a>에 먼저 응답해주세요.</p>
+    <p>실험을 시작하기 전, <a href="https://goo.gl/forms/dTBO0izHS3sdiZyw1" target="_blank"><span class="userId">설문조사</span></a>에 먼저 응답해주세요.</p>
     <p>참가자 번호는 <span class="userId">{{userId}}</span>번 입니다.</p>
 
     <p>
@@ -45,13 +45,13 @@ export default {
   },
   methods: {
     startExperiment: function () {
-      if(this.userId % 3 === 2) {
-        this.$router.push({name: 'ArticlePromptView-id', params: {id: 0}})
-      } else if (this.userId % 3 === 1) {
-        this.$router.push({name: 'PromptView-id', params: {id: 0}})
-      } else {
-        this.$router.push({name: 'PromiseView-id', params: {id: 0}})
-      }
+      // if(this.userId % 3 === 2) {
+      //   this.$router.push({name: 'ArticlePromptView-id', params: {id: 0}})
+      // } else if (this.userId % 3 === 1) {
+      this.$router.push({name: 'PromptView-id', params: {id: 0}})
+      // } else {
+      //   this.$router.push({name: 'PromiseView-id', params: {id: 0}})
+      // }
     }
   }
 }
