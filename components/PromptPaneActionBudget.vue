@@ -50,8 +50,8 @@ export default {
 </script>
 <style scoped>
 
-button {
-  margin: 1em;
+.budgetButton {
+  margin: 1em 0.5em;
 }
 </style>
 
