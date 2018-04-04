@@ -14,7 +14,7 @@
             <dd v-for="plan in promise.plans" :key="plan">{{plan}}</dd>
             <dt>관련 기사</dt>
             <dd v-for="article in promise.links" :key="article.title">
-              <a :href="article.link">{{article.title}}</a>
+              <a :href="article.link" target="_blank" @click="onLinkClick(article.title)">{{article.title}}</a>
             </dd>
           </dl>
         </div>
@@ -38,6 +38,11 @@ export default {
   computed: {
     promise: function () {
       return this.$store.state.promises[this.id]
+    }
+  },
+  methods: {
+    onLinkClick: function (title) {
+      alert(title)
     }
   }
 }
