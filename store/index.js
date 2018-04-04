@@ -100,8 +100,32 @@ const store = () => new Vuex.Store({
           '상가임대차 상생프로젝트 서울형 장기안심상가 사업 지속추진'
         ],
         links: [
+
+          {
+            title: `서울시, 장기안심상가 리모델링 비용 최대 3000만원 지원`,
+            link: `http://news.naver.com/main/read.nhn?mode=LSD&mid=sec&sid1=102&oid=008&aid=0004026037`
+          }, //보도자료 받아쓰기 -- 긍정적 측면
+          {
+            title: `서울시 '안심상가' 실효성 의문`,
+            link: `http://www.naeil.com/news_view/?id_art=239356`
+          }, // 비판적 기사
+          {
+            title: `2017년 「장기안심상가」선정 심사계획`,
+            link: `https://opengov.seoul.go.kr/sanction/12218996`
+          } // 서울시 내부 문서
+        ],
+        pros: [
+          '임대인-임차인 협약을 통한 상생문화 정착',
+          '젠트리피케이션 방지'
+        ],
+        cons: [
+          '혜택이 건물주에게만 집중됨',
+          '건물주가 위약금을 감수하고 협약을 깰 수 있음'
+        ],
+        choices: [
           ''
-        ]
+        ],
+        budget: 19.3
       },
       {
         title: '도심 광폭도로에 대한 도로 다이어트 추진',
@@ -119,9 +143,17 @@ const store = () => new Vuex.Store({
             title: `서울 줄줄이 '도로 다이어트'… 도심교통 괜찮을까`,
             link: 'http://news.hankyung.com/article/2017121079091' 
           },
+          // {
+          //   title: '사대문안 도로줄여 친환경 도시로..',
+          //   link: 'http://radio.ytn.co.kr/program/?f=2&id=54655&s_mcd=0201&s_hcd=09'
+          // },
           {
-            title: '사대문안 도로줄여 친환경 도시로..',
-            link: 'http://radio.ytn.co.kr/program/?f=2&id=54655&s_mcd=0201&s_hcd=09'
+            title: `2016 서울시 도로다이어트 현황과 평가`,
+            link: `http://www.auri.re.kr/auriTidings/researchReport_view.asp?bbs_code=4&idx=1673`
+          },
+          {
+            title: `(2018) 한양도성안 도로공간재편(퇴계로)`,
+            link: `https://opengov.seoul.go.kr/budget/14608644`
           }
         ],
         pros: [
@@ -135,7 +167,7 @@ const store = () => new Vuex.Store({
         choices: [
           ''
         ],
-        budget: 484.3
+        budget: 48.4
       },
       {
         title: '음악으로 지키는 안전한 우리 동네!',
@@ -146,8 +178,25 @@ const store = () => new Vuex.Store({
           '성과평가 후 확대 추진여부 검토'
         ],
         links: [
-
-        ]
+          {
+            title: '어두운 밤 난곡동 골목길에 음악을 틀었더니…',
+            link: `https://opengov.seoul.go.kr/mediahub/7108247`
+          },
+          {
+            title: `「음악으로 지키는 안전한 우리 동네」 추진계획`,
+            link: `http://opengov.seoul.go.kr/sanction/3671765`
+          }
+        ],
+        pros: [
+          '클래식 음악을 활용한 범죄예방 사례 존재',
+        ],
+        cons: [
+          '음악만으로 범죄를 예방하는 것에 한계가 있음',
+        ],
+        choices: [
+          ''
+        ],
+        budget: 0.2
       }
     ],
     prompts: [
