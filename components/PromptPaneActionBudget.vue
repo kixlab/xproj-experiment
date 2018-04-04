@@ -12,7 +12,7 @@
       <b-btn block @click="onReasonClick" variant="primary">등록</b-btn>
     </div>
     <div v-else>
-      이 공약에 실제 사용된 예산은 {{budget}}억원입니다. 
+      이 공약에 실제 사용된 예산은 {{budgetString}}입니다. 
       <br>
       <b-button class="budgetButton" @click="onNextClick" variant="primary">다음 질문 보기</b-button>
     </div>
@@ -23,6 +23,21 @@ export default {
   props: {
     options: Array,
     budget: Number
+  },
+  computed: {
+    budgetString: function () {
+      let int = Math.floor(budget)
+      let fraction = Math.floor((budget - int) * 1000)
+      if (int === 0 && fraction !== 0) {
+        return `${fraction}천만원`
+      } else if (int !== 0 && fraction === 0) {
+        return `${int}억원`
+      } else if (int !== 0 && fraction !== 0) {
+        return `${int}억 ${fraction}천만원`
+      } else {
+        return ''
+      }
+    }
   },
   data: function () {
     return {

@@ -214,7 +214,7 @@ const store = () => new Vuex.Store({
         ※ 서울로 7017 프로젝트 총 사업비: 647억원
         `,
         type: 'budget',
-        options: [50, 100, 500, 1000, 5000]
+        options: [1, 10, 50, 100, 500, 1000]
       },
       {
         promptContent: '이 공약의 긍정적인 효과는 무엇이 있을까요?',
