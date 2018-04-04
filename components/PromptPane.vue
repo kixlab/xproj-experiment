@@ -15,6 +15,9 @@
         <prompt-pane-action-budget v-else-if="prompt.type === 'budget'" :options="prompt.options" :budget="promise.budget" @next-prompt="onNextPrompt"></prompt-pane-action-budget>
         <prompt-pane-action-rating v-else-if="prompt.type === 'rating'" :max-rating="prompt.maxRating" @next-prompt="onNextPrompt"></prompt-pane-action-rating>
       </div>
+      <div class="progressText">
+        {{promptIdx + 1}} / {{prompts.length}}
+      </div>
     </div>
   </div>
 </template>
@@ -49,18 +52,21 @@ export default {
     },
     endOfPrompts: function () {
       return this.promptIdx >= this.prompts.length
+    },
+    promptIdx: function () {
+      return this.$store.state.promptIdx
     }
   },
-  data: function () {
-    return {
-      promptIdx: 0,
-    }
-  },
+  // data: function () {
+  //   return {
+  //     promptIdx: 0,
+  //   }
+  // },
   methods: {
     onNextPrompt: function (payload) {
       payload.prompt = this.prompt.promptContent
       db.ref('responses/' + this.$store.state.userId + '/' + this.$route.params.id + '/' + this.promptIdx).set(payload)
-      this.promptIdx += 1
+      this.$store.commit('incrementPromptIdx')
     }
   }
 }
@@ -76,6 +82,12 @@ export default {
 .promptPaneAction {
   text-align: center;
   margin-bottom: 1.2em;
+}
+
+.progressText {
+  text-align: center;
+  font-size: 0.8em;
+  margin-bottom: 1em;
 }
 </style>
 
