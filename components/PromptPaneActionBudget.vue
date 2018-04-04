@@ -2,17 +2,19 @@
   <div>
     <div v-if="!isAnswered">
       <b-button class="budgetButton" v-for="option in options" :key="option" :variant="selectedBudget === option ? 'primary' : 'primary-outline'" @click="onBudgetClick(option)">{{option}}억원</b-button>
-      <b-input-group>
+      <!-- <b-input-group>
         <b-form-input v-model="text" placeholder="이유를 적어주세요"></b-form-input>
         <b-input-group-append>
           <b-btn @click="onReasonClick" variant="primary">등록</b-btn>
         </b-input-group-append>
-      </b-input-group>
+      </b-input-group> -->
+      <b-form-textarea class="reasonTextBox" v-model="text" placeholder="이유를 적어주세요" rows="3"></b-form-textarea>
+      <b-btn block @click="onReasonClick" variant="primary">등록</b-btn>
     </div>
     <div v-else>
       이 공약에 실제 사용된 예산은 {{budget}}억원입니다. 
       <br>
-      <b-button @click="onNextClick" variant="primary">다음 질문 보기</b-button>
+      <b-button class="budgetButton" @click="onNextClick" variant="primary">다음 질문 보기</b-button>
     </div>
   </div>
 </template>

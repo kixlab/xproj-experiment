@@ -14,6 +14,7 @@
         <prompt-pane-action-options v-else-if="prompt.type === 'options'" :options="prompt.options" @next-prompt="onNextPrompt"></prompt-pane-action-options>
         <prompt-pane-action-budget v-else-if="prompt.type === 'budget'" :options="prompt.options" :budget="promise.budget" @next-prompt="onNextPrompt"></prompt-pane-action-budget>
         <prompt-pane-action-rating v-else-if="prompt.type === 'rating'" :max-rating="prompt.maxRating" @next-prompt="onNextPrompt"></prompt-pane-action-rating>
+        <prompt-pane-action-yes-no v-else-if="prompt.type === 'yesno'" @next-prompt="onNextPrompt"></prompt-pane-action-yes-no>
       </div>
       <div class="progressText">
         {{promptIdx + 1}} / {{prompts.length}}
@@ -27,6 +28,7 @@ import PromptPaneActionOpenended from '~/components/PromptPaneActionOpenended.vu
 import PromptPaneActionOptions from '~/components/PromptPaneActionOptions.vue'
 import PromptPaneActionRating from '~/components/PromptPaneActionRating.vue'
 import PromptPaneActionBudget from '~/components/PromptPaneActionBudget.vue'
+import PromptPaneActionYesNo from '~/components/PromptPaneActionYesNo.vue'
 
 import db from '~/firebase.js'
 
@@ -38,7 +40,8 @@ export default {
     PromptPaneActionOpenended,
     PromptPaneActionOptions,
     PromptPaneActionRating,
-    PromptPaneActionBudget
+    PromptPaneActionBudget,
+    PromptPaneActionYesNo
   },
   computed: {
     prompts: function () {
