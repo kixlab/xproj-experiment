@@ -14,7 +14,7 @@
             <dd v-for="plan in promise.plans" :key="plan">{{plan}}</dd>
             <dt>관련 기사</dt>
             <dd v-for="article in promise.links" :key="article.title">
-              <a :href="article.link">{{article.title}}</a>
+              <a :href="article.link" target="_blank" @click="onLinkClick(article.title)">{{article.title}}</a>
             </dd>
           </dl>
         </div>
@@ -26,6 +26,7 @@
 </template>
 <script>
 import PromptPane from '~/components/PromptPane.vue'
+import db from '~/firebase.js'
 
 export default {
   props: {
@@ -38,6 +39,13 @@ export default {
   computed: {
     promise: function () {
       return this.$store.state.promises[this.id]
+    }
+  },
+  methods: {
+    onLinkClick: function (title) {
+      // alert('adsf')
+      db.ref('responses/' + this.$store.state.userId + '/' + this.$route.params.id + '/' + this.$store.state.promptIdx + '/links').push(title)
+
     }
   }
 }

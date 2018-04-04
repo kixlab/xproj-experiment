@@ -11,11 +11,14 @@
       </div>
       <div class="promptPaneAction">
         <prompt-pane-action-openended v-if="prompt.type === 'openended'" @next-prompt="onNextPrompt"></prompt-pane-action-openended>
-        <prompt-pane-action-options v-else-if="prompt.type === 'options'" :options="prompt.options" @next-prompt="onNextPrompt"></prompt-pane-action-options>        
-        <prompt-pane-action-budget v-else-if="prompt.type === 'budget'" :budget="promise.budget" :options="prompt.options" @next-prompt="onNextPrompt"></prompt-pane-action-budget>
+        <prompt-pane-action-options v-else-if="prompt.type === 'options'" :options="prompt.options" @next-prompt="onNextPrompt"></prompt-pane-action-options>
+        <prompt-pane-action-budget v-else-if="prompt.type === 'budget'" :options="prompt.options" :budget="promise.budget" @next-prompt="onNextPrompt"></prompt-pane-action-budget>
         <prompt-pane-action-rating v-else-if="prompt.type === 'rating'" :max-rating="prompt.maxRating" @next-prompt="onNextPrompt"></prompt-pane-action-rating>
         <prompt-pane-action-pros-cons v-else-if="prompt.type === 'proscons'" :pros="promise.pros" :cons="promise.cons" @next-prompt="onNextPrompt"></prompt-pane-action-pros-cons>
         <prompt-pane-action-multiple-choice v-else-if="prompt.type === 'multiplechoice'" :options="promise.choices" @next-prompt="onNextPrompt"></prompt-pane-action-multiple-choice>
+      </div>
+      <div class="progressText">
+        {{promptIdx + 1}} / {{prompts.length}}
       </div>
     </div>
   </div>
@@ -54,18 +57,21 @@ export default {
     },
     endOfPrompts: function () {
       return this.promptIdx >= this.prompts.length
+    },
+    promptIdx: function () {
+      return this.$store.state.promptIdx
     }
   },
-  data: function () {
-    return {
-      promptIdx: 0,
-    }
-  },
+  // data: function () {
+  //   return {
+  //     promptIdx: 0,
+  //   }
+  // },
   methods: {
     onNextPrompt: function (payload) {
       payload.prompt = this.prompt.promptContent
       db.ref('responses/' + this.$store.state.userId + '/' + this.$route.params.id + '/' + this.promptIdx).set(payload)
-      this.promptIdx += 1
+      this.$store.commit('incrementPromptIdx')
     }
   }
 }
@@ -81,6 +87,12 @@ export default {
 .promptPaneAction {
   text-align: center;
   margin-bottom: 1.2em;
+}
+
+.progressText {
+  text-align: center;
+  font-size: 0.8em;
+  margin-bottom: 1em;
 }
 </style>
 

@@ -6,7 +6,7 @@
     <div v-else>
       이 공약에 실제 사용된 예산은 {{budget}}억원입니다. 
       <br>
-      <b-button @click="onNextClick">다음</b-button>
+      <b-button @click="onNextClick" variant="primary">다음 질문 보기</b-button>
     </div>
   </div>
 </template>
