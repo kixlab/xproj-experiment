@@ -19,13 +19,13 @@ export default {
   computed: {
     budgetString: function () {
       let int = Math.floor(this.budget)
-      let fraction = Math.floor((this.budget - int) * 1000)
+      let fraction = (this.budget * 10 - int * 10) * 1000
       if (int === 0 && fraction !== 0) {
-        return `${fraction}천만원`
+        return `${fraction}만원`
       } else if (int !== 0 && fraction === 0) {
         return `${int}억원`
       } else if (int !== 0 && fraction !== 0) {
-        return `${int}억 ${fraction}천만원`
+        return `${int}억 ${fraction}만원`
       } else {
         return ''
       }
