@@ -1,10 +1,12 @@
 <template>
   <div class="postTest">
-    <p>본 실험은 모두 종료되었습니다. 마지막으로, 실험 후 <a :href="surveyTarget" target="_blank"><span class="userId">설문조사</span></a>에 응답해주세요.</p>
+    <p>오늘 실험은 모두 끝났습니다. 참여해주셔서 감사합니다. 내일 안내드릴 2일차 실험에도 참여해주세요! </p>
+      
+    <!-- <p>마지막으로, 실험 후 <a :href="surveyTarget" target="_blank"><span class="userId">설문조사</span></a>에 응답해주세요.</p>
 
     <p>참가자 번호는 <span class="userId">{{userId}}</span> 입니다.</p>
 
-    <p>실험에 참여해주셔서 감사합니다!</p>
+    <p>실험에 참여해주셔서 감사합니다!</p> -->
   </div>
 </template>
 <script>
