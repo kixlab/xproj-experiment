@@ -31,7 +31,7 @@ export default {
       return this.$route.params.userId
     },
     isKeyCorrect: function () {
-      return 'internet' == this.checkKey.toLowerCase().trim()
+      return 'promise' == this.checkKey.toLowerCase().trim()
     }
   },
   fetch: function ({store, params}) {
