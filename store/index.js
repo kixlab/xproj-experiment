@@ -240,12 +240,16 @@ const store = () => new Vuex.Store({
       //   type: 'openended'
       // }
     ],
+    linkAccessed: [0, 0, 0]
     // responses: []
   },
   mutations: {
     setUserId: function (state, payload) {
       state.userId = payload.userId
     },
+    accessLink: function (state, promiseIdx) {
+      state.linkAccessed[promiseIdx] += 1
+    }
     // ...firebaseMutations
   },
   // actions: {

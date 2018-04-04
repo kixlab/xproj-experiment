@@ -26,6 +26,7 @@
 </template>
 <script>
 import PromptPane from '~/components/PromptPane.vue'
+import db from '~/firebase.js'
 
 export default {
   props: {
@@ -42,7 +43,7 @@ export default {
   },
   methods: {
     onLinkClick: function (title) {
-      alert(title)
+      store.commit('accessLink', this.id)
     }
   }
 }
