@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!isAnswered">
-      <b-button class="budgetButton" v-for="option in options" :key="option" @click="onBudgetClick(option)" :variant="selectedBudget === option ? 'primary' : 'primary-outline'">{{option}}억원</b-button>
+      <b-button class="budgetButton" v-for="option in options" :key="option" @click="onBudgetClick(option)" :variant="selectedBudget === option ? 'primary' : 'outline-primary'">{{option}}억원</b-button>
     </div>
     <div v-else>
       이 공약에 실제 사용된 예산은 {{budgetString}}입니다. 
