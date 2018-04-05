@@ -222,7 +222,7 @@ const store = () => new Vuex.Store({
         options: [1, 10, 50, 100, 500, 1000]
       },
       {
-        promptContent: `다음은 언론이 보도한 이 공약의 긍정적/부정적 측면입니다. 동의하시는 항목을 모두 선택해주세요.`,
+        promptContent: `다음은 이 공약의 긍정적/부정적 측면입니다. 동의하시는 항목을 모두 선택해주세요.`,
         type: 'proscons'
       },
       {
