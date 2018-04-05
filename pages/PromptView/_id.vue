@@ -4,6 +4,9 @@
     <div class="nextPromiseButtonDiv">
       <b-button @click="nextPromise" variant="outline-primary">다음 공약 보기</b-button>
     </div>
+    <div class="progressText">
+      {{this.id}}/{{this.promisesCount}}
+    </div>
   </div>
 </template>
 
@@ -41,6 +44,12 @@ export default {
 <style scoped>
 .nextPromiseButtonDiv {
   text-align: center;
+}
+.progressText {
+  text-align: center;
+  font-size: 0.8em;
+  margin-bottom: 1em;
+  margin-top: 1em;
 }
 </style>
 

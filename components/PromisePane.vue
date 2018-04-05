@@ -55,7 +55,7 @@ export default {
 .promisePane {
   border: 1px solid #DBDBDB;
   margin-top: 10%;
-  margin-bottom: 10%;
+  margin-bottom: 5%;
   padding-left: 3em;
   padding-right: 3em;
 }
