@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!isAnswered">
-      <b-button class="budgetButton" v-for="option in options" :key="option" @click="onBudgetClick(option)" :variant="selectedBudget === option ? 'primary' : 'primary-outline'">{{option}}억원</b-button>
+      <b-button class="budgetButton" v-for="option in options" :key="option" @click="onBudgetClick(option)" :variant="selectedBudget === option ? 'primary' : 'outline-primary'">{{option}}억원</b-button>
       <!-- <b-input-group>
         <b-form-input v-model="text" placeholder="이유를 적어주세요"></b-form-input>
         <b-input-group-append>
