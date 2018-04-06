@@ -29,6 +29,9 @@ export default {
     nextPromise: function () {
       if(this.id >= this.promisesCount - 1) {
         this.$router.push({name: 'PostTest'})
+      } else if(this.id === 1) {
+        this.$store.commit('resetPromptIdx')
+        this.$router.push({name: 'ArticlePromptView-id', params: {id: this.id + 1}})
       } else {
         this.$store.commit('resetPromptIdx')
         this.$router.push({name: 'PromptView-id', params: {id: this.id + 1}})
