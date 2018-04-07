@@ -70,7 +70,7 @@ export default {
   methods: {
     onNextPrompt: function (payload) {
       payload.prompt = this.prompt.promptContent
-      db.ref('responses/' + this.$store.state.userId + '/' + this.$route.params.id + '/' + this.promptIdx).set(payload)
+      db.ref('responses/' + this.$store.state.userId + '/' + (this.$route.params.id  + 4) + '/' + this.promptIdx).set(payload)
       this.$store.commit('incrementPromptIdx')
     }
   }
