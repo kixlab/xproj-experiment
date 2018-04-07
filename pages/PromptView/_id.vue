@@ -5,7 +5,7 @@
       <b-button @click="nextPromise" variant="outline-primary">다음 공약 보기</b-button>
     </div>
     <div class="progressText">
-      {{this.id}}/{{this.promisesCount}}
+      {{this.id + 1}}/{{this.promisesCount}}
     </div>
   </div>
 </template>
