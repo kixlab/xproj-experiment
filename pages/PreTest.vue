@@ -1,5 +1,5 @@
 <template>
-  <div class="preTest">
+  <div class="preTest" v-if="isExperimentAvailable">
     <p>
       저희 실험에 참여해주셔서 감사합니다. 이 실험은 선거 공약에 관한 정보를 효과적으로 전달할 수 있는 인터페이스에 대한 연구의 일환입니다.
       이 실험은 본 실험과 실험 전/후의 설문조사로 이루어져 있습니다. 실험과 설문조사를 모두 합쳐 약 30-40분 정도 소요될 예정입니다.
@@ -23,21 +23,72 @@
       </b-input-group>
     </div>
   </div>
+  <div class="preTest" v-else-if="isExperimentFull">
+    <p>
+      참가자 모집이 완료되었습니다. 관심 가져주셔서 감사합니다!
+    </p>
+  </div>
+  <div class="preTest" v-else>
+    <p>
+      참가자 ID를 받아오는 중 오류가 발생했습니다. 페이지를 새로고침 해주세요!
+    </p>
+  </div>
 </template>
 <script>
 import db from '~/firebase.js'
+import { hri } from 'human-readable-ids'
 
 export default {
   computed: {
     userId: function () {
-      return this.$route.params.userId
+      return this.$store.state.userId
     },
     isKeyCorrect: function () {
       return 'promise' == this.checkKey.toLowerCase().trim()
+    },
+    isExperimentAvailable: function () {
+      return (this.$store.state.expCondition >= 0)
+    },
+    isExperimentFull: function () {
+      return this.$store.state.expCondition == -1
     }
   },
   fetch: function ({store, params}) {
-    store.commit('setUserId', {userId: params.userId})
+    if(localStorage.getItem('userId') && localStorage.getItem('expCondition')) {
+      const userId = localStorage.getItem('userId')
+      const expCondition = localStorage.getItem('expCondition')
+      store.commit('setUserId', {userId: userId})
+      store.commit('setExpCondition', {expCondition: expCondition})
+    } else {
+      const userId = hri.random()
+      db.ref('counts').transaction(function (c) {
+        if (c){
+          console.log(c)
+          const max = Math.max(...c)
+          if(max > 0) {
+            const idx = c.indexOf(max)
+            store.commit('setExpCondition', {expCondition: idx})
+            localStorage.setItem('expCondition', idx)
+            c[idx] = max - 1
+          } else {
+            store.commit('setExpCondition', {expCondition: -1})
+            localStorage.setItem('expCondition', -1)
+          }
+        }
+        return c
+      }, function(err) {
+        if(!err) {
+          store.commit('setUserId', {userId: userId})
+          localStorage.setItem('userId', userId)
+          db.ref(`conditions/${userId}`).set({
+            expCondition: store.state.expCondition
+          })
+        } else {
+          store.commit('setExpCondition', {expCondition: -2})
+        }
+      })
+
+    }
   },
   data: function () {
     return {
@@ -52,13 +103,11 @@ export default {
           time: new Date().toLocaleString('ko-KR')
         }
       )
-      // if(this.userId % 3 === 2) {
-      //   this.$router.push({name: 'ArticlePromptView-id', params: {id: 0}})
-      // } else if (this.userId % 3 === 1) {
-      this.$router.push({name: 'PromptView-id', params: {id: 0}})
-      // } else {
-      //   this.$router.push({name: 'PromiseView-id', params: {id: 0}})
-      // }
+      if(this.expCondition === 0 || this.expCondition === 1) {
+        this.$router.push({name: 'ArticlePromptView-id', params: {id: 0}})
+      } else if (this.expCondition === 2 || this.expCondition === 3) {
+        this.$router.push({name: 'PromptView-id', params: {id: 0}})
+      }
     }
   }
 }

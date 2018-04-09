@@ -2,7 +2,7 @@
   <b-row class="justify-content-md-center">
     <b-col cols="12" lg="8">
       <div class="promisePane">
-        <div class="prompt">이 기사와 연관된 박원순 서울시장의 2014년 선거 공약입니다.</div>
+        <div class="prompt" v-if="isArticleVisible">이 기사와 연관된 박원순 서울시장의 2014년 선거 공약입니다.</div>
         <div class="promiseTitle">
           {{promise.title}}
         </div>
@@ -39,6 +39,9 @@ export default {
   computed: {
     promise: function () {
       return this.$store.state.promises[this.id]
+    },
+    isArticleVisible: function () {
+      return this.$store.state.userId % 4 === 0 || this.$store.state.userId % 4 === 1
     }
   },
   methods: {

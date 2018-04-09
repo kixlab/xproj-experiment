@@ -44,6 +44,6 @@ module.exports = {
         })
       }
     },
-    vendor: ['axios', 'firebase']
+    vendor: ['axios', 'firebase', 'human-readable-ids']
   }
 }
