@@ -14,6 +14,8 @@
 <script>
 import PromisePane from '~/components/PromisePane.vue'
 import ArticleContent from '~/components/ArticleContent.vue'
+import db from '~/firebase.js'
+
 export default {
   computed: {
     id: function () {
@@ -29,6 +31,12 @@ export default {
   },
   methods: {
     nextPromise: function () {
+      db.ref('clicks/' + this.$store.state.userId + '/' + (this.$route.params.id) + '/' + this.$store.state.promptIdx).push(
+        {
+          name: 'articlePromptViewNextPromiseButton',
+          time: new Date().toLocaleString('ko-KR')
+        }
+      )
       if(this.id >= this.promisesCount - 1) {
         this.$router.push({name: 'PostTest'})
       } else if (this.id === 1) {

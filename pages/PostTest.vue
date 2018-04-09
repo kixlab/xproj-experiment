@@ -10,7 +10,16 @@
   </div>
 </template>
 <script>
+import db from '~/firebase.js'
 export default {
+  fetch: function ({store, params}) {
+    db.ref('clicks/' + store.state.userId + '/expEnd').push(
+      {
+        name: 'endExperimentPage',
+        time: new Date().toLocaleString('ko-KR')
+      }
+    )
+  },
   computed: {
     userId: function () {
       return this.$store.state.userId

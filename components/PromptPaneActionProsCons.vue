@@ -13,10 +13,12 @@
       <b-button block variant="outline-danger" v-for="con in cons" :key="con" :pressed="choicesSelected.includes(con)"  @click="onConClick(con)">{{con}}</b-button>
     </b-button-group>
     <br/>
-    <b-button class="nextButton" @click="$emit('next-prompt', { choicesSelected: choicesSelected })">다음</b-button>
+    <b-button class="nextButton" @click="onNextClick">다음</b-button>
   </div>
 </template>
 <script>
+import db from '~/firebase.js'
+
 export default {
   props: {
     pros: Array,
@@ -30,6 +32,13 @@ export default {
       } else {
         this.choicesSelected.push(pro)
       }
+      db.ref('clicks/' + this.$store.state.userId + '/' + (this.$route.params.id) + '/' + this.$store.state.promptIdx).push(
+        {
+          name: 'prosConsProButton',
+          value: pro,
+          time: new Date().toLocaleString('ko-KR')
+        }
+      )
     },
     onConClick: function (con) {
       if(this.choicesSelected.includes(con)){
@@ -38,6 +47,22 @@ export default {
       } else {
         this.choicesSelected.push(con)
       }
+      db.ref('clicks/' + this.$store.state.userId + '/' + (this.$route.params.id) + '/' + this.$store.state.promptIdx).push(
+        {
+          name: 'prosConsConButton',
+          value: con,
+          time: new Date().toLocaleString('ko-KR')
+        }
+      )
+    },
+    onNextClick: function () {
+      db.ref('clicks/' + this.$store.state.userId + '/' + (this.$route.params.id) + '/' + this.$store.state.promptIdx).push(
+        {
+          name: 'prosConsNextButton',
+          time: new Date().toLocaleString('ko-KR')
+        }
+      )
+      this.$emit('next-prompt', { choicesSelected: this.choicesSelected })
     }
   },
   data: function () {

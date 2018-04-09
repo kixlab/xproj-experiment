@@ -4,12 +4,21 @@
   </div>
 </template>
 <script>
+import db from '~/firebase.js'
+
 export default {
   props: {
     maxRating: Number
   },
   methods: {
     onButtonClick: function (i) {
+      db.ref('clicks/' + this.$store.state.userId + '/' + (this.$route.params.id) + '/' + this.$store.state.promptIdx).push(
+        {
+          name: 'ratingsRatingButton',
+          value: i,
+          time: new Date().toLocaleString('ko-KR')
+        }
+      )
       this.$emit('next-prompt', {rating: i})
     }
   }

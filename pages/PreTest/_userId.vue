@@ -25,6 +25,8 @@
   </div>
 </template>
 <script>
+import db from '~/firebase.js'
+
 export default {
   computed: {
     userId: function () {
@@ -44,6 +46,12 @@ export default {
   },
   methods: {
     startExperiment: function () {
+      db.ref('clicks/' + this.$store.state.userId + '/expStart').push(
+        {
+          name: 'startExperimentButton',
+          time: new Date().toLocaleString('ko-KR')
+        }
+      )
       // if(this.userId % 3 === 2) {
       //   this.$router.push({name: 'ArticlePromptView-id', params: {id: 0}})
       // } else if (this.userId % 3 === 1) {

@@ -5,7 +5,7 @@ import Vuex from 'vuex'
 const store = () => new Vuex.Store({
   strict: true,
   state: {
-    userId: '',
+    userId: 0,
     articles: [
       {
         
@@ -232,16 +232,42 @@ const store = () => new Vuex.Store({
         budget: 0.2
       }
     ],
-    prompts: [
+    heavyPrompts: [
+      {
+        promptContent: '주위에 이 공약과 직/간접적으로 연관있는 사람이 있나요? 있다면 누구인지, 그리고 이 공약이 어떻게 그 사람에게 영향을 주는지 적어주세요.',
+        type: 'openended',
+      }, 
+      {
+        promptContent: `이 공약을 초등학교 1학년 아이에게 설명해야 한다면, 어떻게 설명하실 것인가요?`,
+        type: 'openended'
+      }, 
+      {
+        promptContent: `이 공약을 이행하기 위해 필요한 4년간 총 예산은 대략 얼마일까요? 왜 그렇게 생각하셨나요?
+        ※ 2018년 서울시 예산: 28조 179억원
+        ※ 서울로 7017 프로젝트 총 사업비: 647억원
+        `,
+        type: 'budget',
+        options: [1, 10, 50, 100, 500, 1000]
+      },
+      {
+        promptContent: '이 공약의 긍정적인 효과는 무엇이 있을까요?',
+        type: 'openended'
+      },
+      {
+        promptContent: '이 공약의 부작용은 무엇이 있을까요?',
+        type: 'openended'
+      },
+      {
+        promptContent: `이 공약에 대해 어떻게 생각하시나요? 찬성/반대 입장을 선택하고, 그 이유를 적어주세요.`,
+        type: 'yesno'
+      }
+    ],
+    lightPrompts: [
       {
         promptContent: '가족이나 친구, 혹은 본인 중 이 공약과 직/간접적으로 연관된 사람이 있나요?',
         type: 'options',
         options: ['예', '아니오']
       }, 
-      // {
-      //   promptContent: `이 공약에 대한 다음 설명 중 맞는 것을 모두 골라주세요.`,
-      //   type: 'multiplechoice'
-      // }, 
       {
         promptContent: `이 공약을 이행하기 위해 필요한 4년간 총 예산은 대략 얼마일까요?
         ※ 2018년 서울시 예산: 28조 179억원
@@ -259,27 +285,18 @@ const store = () => new Vuex.Store({
         type: 'options',
         options: ['예', '아니오']
       }
-      // {
-      //   promptContent: '이 공약은 서울시의 어떤 문제를 해결하기 위한 공약이라고 생각하시나요?',
-      //   type: 'openended'
-      // },
-      // {
-      //   promptContent: '이 공약은 서울시의 중요한 문제를 해결하기 위한 공약인가요?',
-      //   type: 'options',
-      //   options: ['예', '아니오']
-      // },
-      // {
-      //   promptContent: '이 공약은 문제에 대한 적절한 해결책인가요?',
-      //   type: 'options',
-      //   options: ['예', '아니오']
-      // },
-      // {
-      //   promptContent: '이 공약의 부작용은 무엇이 있을까요?',
-      //   type: 'openended'
-      // }
     ],
     promptIdx: 0
     // responses: []
+  },
+  getters: {
+    prompts: (state) => {
+      if(state.userId % 2 === 0) {
+        return state.lightPrompts
+      } else {
+        return state.heavyPrompts
+      }
+    }
   },
   mutations: {
     setUserId: function (state, payload) {

@@ -2,6 +2,10 @@
   <div>
     <div v-if="!isAnswered">
       <b-button class="budgetButton" v-for="option in options" :key="option" @click="onBudgetClick(option)" :variant="selectedBudget === option ? 'primary' : 'outline-primary'">{{option}}억원</b-button>
+      <div v-if="isHeavy">
+        <b-form-textarea class="reasonTextBox" v-model="text" placeholder="이유를 적어주세요" rows="3"></b-form-textarea>
+        <b-btn block @click="onReasonClick" variant="primary">등록</b-btn>
+      </div>
     </div>
     <div v-else>
       이 공약에 실제 사용된 예산은 {{budgetString}}입니다. 
@@ -11,10 +15,13 @@
   </div>
 </template>
 <script>
+import db from '~/firebase.js'
+
 export default {
   props: {
     options: Array,
-    budget: Number
+    budget: Number,
+    isHeavy: Boolean
   },
   computed: {
     budgetString: function () {
@@ -34,16 +41,41 @@ export default {
   data: function () {
     return {
       isAnswered: false,
-      selectedBudget: 0
+      selectedBudget: 0,
+      text: ''
     }
   },
   methods: {
     onBudgetClick: function (option) {
       this.selectedBudget = option
+      if(!this.isHeavy) {
+        this.isAnswered = true
+      }
+      db.ref('clicks/' + this.$store.state.userId + '/' + (this.$route.params.id) + '/' + this.$store.state.promptIdx).push(
+        {
+          name: 'budgetBudgetButton',
+          value: option,
+          time: new Date().toLocaleString('ko-KR')
+        }
+      )
+    },
+    onReasonClick: function () {
       this.isAnswered = true
+      db.ref('clicks/' + this.$store.state.userId + '/' + (this.$route.params.id) + '/' + this.$store.state.promptIdx).push(
+        {
+          name: 'budgetReasonButton',
+          time: new Date().toLocaleString('ko-KR')
+        }
+      )
     },
     onNextClick: function () {
-      this.$emit('next-prompt', { option: this.selectedBudget })
+      db.ref('clicks/' + this.$store.state.userId + '/' + (this.$route.params.id) + '/' + this.$store.state.promptIdx).push(
+        {
+          name: 'budgetNextButton',
+          time: new Date().toLocaleString('ko-KR')
+        }
+      )
+      this.$emit('next-prompt', { option: this.selectedBudget, text: this.text })
     }
   }
 }

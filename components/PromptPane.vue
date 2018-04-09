@@ -12,10 +12,11 @@
       <div class="promptPaneAction">
         <prompt-pane-action-openended v-if="prompt.type === 'openended'" @next-prompt="onNextPrompt"></prompt-pane-action-openended>
         <prompt-pane-action-options v-else-if="prompt.type === 'options'" :options="prompt.options" @next-prompt="onNextPrompt"></prompt-pane-action-options>
-        <prompt-pane-action-budget v-else-if="prompt.type === 'budget'" :options="prompt.options" :budget="promise.budget" @next-prompt="onNextPrompt"></prompt-pane-action-budget>
+        <prompt-pane-action-budget v-else-if="prompt.type === 'budget'" :options="prompt.options" :budget="promise.budget" @next-prompt="onNextPrompt" :isHeavy="isHeavy"></prompt-pane-action-budget>
         <prompt-pane-action-rating v-else-if="prompt.type === 'rating'" :max-rating="prompt.maxRating" @next-prompt="onNextPrompt"></prompt-pane-action-rating>
         <prompt-pane-action-pros-cons v-else-if="prompt.type === 'proscons'" :pros="promise.pros" :cons="promise.cons" @next-prompt="onNextPrompt"></prompt-pane-action-pros-cons>
         <prompt-pane-action-multiple-choice v-else-if="prompt.type === 'multiplechoice'" :options="promise.choices" @next-prompt="onNextPrompt"></prompt-pane-action-multiple-choice>
+        <prompt-pane-action-yes-no v-else-if="prompt.type === 'yesno'" @next-prompt="onNextPrompt"></prompt-pane-action-yes-no>
       </div>
       <div class="progressText">
         {{promptIdx + 1}} / {{prompts.length}}
@@ -31,6 +32,8 @@ import PromptPaneActionRating from '~/components/PromptPaneActionRating.vue'
 import PromptPaneActionProsCons from '~/components/PromptPaneActionProsCons.vue'
 import PromptPaneActionMultipleChoice from '~/components/PromptPaneActionMultipleChoice.vue'
 import PromptPaneActionBudget from '~/components/PromptPaneActionBudget.vue'
+import PromptPaneActionYesNo from '~/components/PromptPaneActionYesNo.vue'
+
 import db from '~/firebase.js'
 
 export default {
@@ -43,11 +46,15 @@ export default {
     PromptPaneActionRating,
     PromptPaneActionProsCons,
     PromptPaneActionMultipleChoice,
-    PromptPaneActionBudget
+    PromptPaneActionBudget,
+    PromptPaneActionYesNo
   },
   computed: {
+    isHeavy: function () {
+      return this.$store.state.userId % 2 === 1
+    },
     prompts: function () {
-      return this.$store.state.prompts
+      return this.$store.getters.prompts
     },
     prompt: function () {
       return this.prompts[this.promptIdx]
@@ -70,6 +77,7 @@ export default {
   methods: {
     onNextPrompt: function (payload) {
       payload.prompt = this.prompt.promptContent
+      payload.time = new Date().toLocaleString('ko-KR')
       db.ref('responses/' + this.$store.state.userId + '/' + (this.$route.params.id  + 4) + '/' + this.promptIdx).set(payload)
       this.$store.commit('incrementPromptIdx')
     }

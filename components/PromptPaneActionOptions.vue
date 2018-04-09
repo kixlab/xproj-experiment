@@ -4,12 +4,21 @@
   </div>
 </template>
 <script>
+import db from '~/firebase.js'
+
 export default {
   props: {
     options: Array
   },
   methods: {
     onButtonClick: function (option) {
+      db.ref('clicks/' + this.$store.state.userId + '/' + (this.$route.params.id) + '/' + this.$store.state.promptIdx).push(
+        {
+          name: 'optionsOptionButton',
+          value: option,
+          time: new Date().toLocaleString('ko-KR')
+        }
+      )
       this.$emit('next-prompt', { option: option })
     }
   }

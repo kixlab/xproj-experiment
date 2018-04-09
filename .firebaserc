@@ -1,6 +1,7 @@
 {
   "projects": {
     "default": "xproj-experiment",
-    "heavy": "xproj-heavy"
+    "heavy": "xproj-heavy",
+    "1stday": "xproj-1stday"
   }
 }
