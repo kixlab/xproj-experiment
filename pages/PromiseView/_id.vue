@@ -31,12 +31,14 @@ export default {
           time: new Date().toLocaleString('ko-KR')
         }
       )
-      if(this.id >= this.promisesCount - 1) {
-        this.$router.push({name: 'PostTest'})
-      } else {
-        this.$store.commit('resetPromptIdx')
-        this.$router.push({name: 'PromiseView-id', params: {id: this.id + 1}})
-      }
+      localStorage.setItem('nextPromiseId', (this.id + 1))
+      this.$router.push({name: 'PostTest'})
+      // if(this.id >= this.promisesCount - 1) {
+      //   this.$router.push({name: 'PostTest'})
+      // } else {
+      //   this.$store.commit('resetPromptIdx')
+      //   this.$router.push({name: 'PromiseView-id', params: {id: this.id + 1}})
+      // }
     }
   }
   // async asyncData: function (context) {

@@ -46,6 +46,9 @@ export default {
     isKeyCorrect: function () {
       return 'promise' == this.checkKey.toLowerCase().trim()
     },
+    expCondition: function () {
+      return this.$store.state.expCondition
+    },
     isExperimentAvailable: function () {
       return (this.$store.state.expCondition >= 0)
     },
@@ -60,7 +63,6 @@ export default {
       store.commit('setUserId', {userId: userId})
       store.commit('setExpCondition', {expCondition: expCondition})
     } else {
-      const userId = hri.random()
       db.ref('counts').transaction(function (c) {
         if (c){
           console.log(c)
@@ -78,10 +80,26 @@ export default {
         return c
       }, function(err) {
         if(!err) {
-          store.commit('setUserId', {userId: userId})
-          localStorage.setItem('userId', userId)
-          db.ref(`conditions/${userId}`).set({
-            expCondition: store.state.expCondition
+          db.ref(`conditions`).transaction(function(c) {
+            if(c) {
+              console.log(c)
+              while(true) {
+                let userId = hri.random()
+                if (!Object.keys(c).includes(userId)){
+                  c[userId] = store.state.expCondition
+                  store.commit('setUserId', {userId: userId})
+                  localStorage.setItem('userId', userId)
+                  break
+                }
+              }
+            } else {
+              c = {}
+              let userId = hri.random()
+              c[userId] = store.state.expCondition
+              store.commit('setUserId', {userId: userId})
+              localStorage.setItem('userId', userId)
+            }
+            return c
           })
         } else {
           store.commit('setExpCondition', {expCondition: -2})
@@ -103,10 +121,14 @@ export default {
           time: new Date().toLocaleString('ko-KR')
         }
       )
-      if(this.expCondition === 0 || this.expCondition === 1) {
-        this.$router.push({name: 'ArticlePromptView-id', params: {id: 0}})
-      } else if (this.expCondition === 2 || this.expCondition === 3) {
-        this.$router.push({name: 'PromptView-id', params: {id: 0}})
+      const nextPromiseId = localStorage.getItem('nextPromiseId') || 0
+      console.log(nextPromiseId)
+      if(this.expCondition == 0){
+        this.$router.push({name: 'PromiseView-id', params: {id: nextPromiseId}})
+      } else if( this.expCondition == 1 || this.expCondition == 2) {
+        this.$router.push({name: 'ArticlePromptView-id', params: {id: nextPromiseId }})
+      } else if (this.expCondition == 3 || this.expCondition == 4) {
+        this.$router.push({name: 'PromptView-id', params: {id: nextPromiseId}})
       }
     }
   }
