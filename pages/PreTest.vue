@@ -27,6 +27,7 @@
     <p>
       참가자 모집이 완료되었습니다. 관심 가져주셔서 감사합니다!
     </p>
+    <stakeholder-tree></stakeholder-tree>
   </div>
   <div class="preTest" v-else>
     <p>
@@ -37,8 +38,9 @@
 <script>
 import db from '~/firebase.js'
 import { hri } from 'human-readable-ids'
-
+import StakeholderTree from '~/components/StakeholderTree.vue'
 export default {
+  components: { StakeholderTree },
   computed: {
     userId: function () {
       return this.$store.state.userId
