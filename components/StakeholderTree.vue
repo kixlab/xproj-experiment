@@ -21,20 +21,13 @@ import * as d3 from 'd3';
 
 export default {
   name: 'StakeholderTree',
+  props: {
+    treeData: Object
+  },
   components: {},
   mounted: function () {
-    // this.svgWidth = this.$refs.mySVGContainer.clientWidth
-    // this.svgHeight = this.$refs.mySVGContainer.clientHeight
-    // this.$watch(() => {
-    //   return {
-    //     width: this.$refs.mySVGContainer.clientWidth,
-    //     height: this.$refs.mySVGContainer.clientHeight
-    //   }
-    // }, ({width, height}) => {
-    //   alert('asdf')
-    //   this.svgWidth = width
-    //   this.svgHeight = height
-    // })
+    this.svgWidth = this.$refs.mySVGContainer.clientWidth
+    this.svgHeight = this.$refs.mySVGContainer.clientHeight
     this.$nextTick(() => {
       window.addEventListener('resize', () => {
         this.svgWidth = this.$refs.mySVGContainer.clientWidth
@@ -104,32 +97,6 @@ export default {
   data: function() {
     return {
       selected: 0,
-      treeData: {
-        name: '도심 광폭도로 다이어트 추진',
-        children: [
-          {
-            name: '도심 내 차로 수 축소',
-            children: [
-              { name: '교통체증 심화' },
-              { name: '도심 내 차량 수 감소' }
-            ]
-          },
-          {
-            name: '보도 및 자전거도로 확대',
-            children: [
-              {
-                name: '걷기 좋은거리',
-                children: [
-                  {
-                    name: '보행자'
-                  }
-                ]
-              },
-              { name: 'grandson4' }
-            ]
-          }
-        ]
-      },
       margin: {
         top: 20,
         right: 10,
@@ -146,7 +113,7 @@ export default {
 <style scoped>
 .mySVGContainer {
   width: 100%;
-  height: 20vh;
+  height: 40vh;
 }
 
 
@@ -193,18 +160,18 @@ label {
   display: block;
 }
 
-.list-enter-active, .list-leave-active {
+/* .list-enter-active, .list-leave-active {
   transition: all 1s;
-}
+} */
 .list-enter, .list-leave-to /* .list-leave-active for <2.1.8 */ {
   opacity: 0;
   transform: translateY(30px);
 }
 
-.line-enter-active, .line-leave-active {
-  transition: all 2s;
+/* .line-enter-active, .line-leave-active {
+  transition: all 1s;
   stroke-dashoffset: 0;
-}
+} */
 .line-enter, .line-leave-to /* .list-leave-active for <2.1.8 */ {
   stroke-dashoffset: 1000;
 }
