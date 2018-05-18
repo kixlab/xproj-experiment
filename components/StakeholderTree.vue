@@ -37,7 +37,9 @@ export default {
   },
   computed: {
     root: function() {
-      return this.tree(d3.hierarchy(this.treeData));
+      return this.tree(d3.hierarchy(this.treeData), function (d) {
+        return Object.values(d.children)
+      })
     },
     tree: function() {
       return d3.tree().size([this.treeWidth, this.treeHeight]);
@@ -98,7 +100,7 @@ export default {
     return {
       selected: 0,
       margin: {
-        top: 20,
+        top: 30,
         right: 10,
         bottom: 20,
         left: 10
@@ -113,7 +115,7 @@ export default {
 <style scoped>
 .mySVGContainer {
   width: 100%;
-  height: 40vh;
+  height: 60vh;
 }
 
 

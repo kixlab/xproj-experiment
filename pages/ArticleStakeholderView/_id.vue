@@ -1,7 +1,7 @@
 <template>
   <div>
     <article-content :id="id"></article-content>
-    <stakeholder-pane :id="id"></stakeholder-pane>
+    <stakeholder-pane :tree-data="treeData" @add-path="onAddPath" ></stakeholder-pane>
     <div class="nextPromiseButtonDiv">
       <b-button @click="nextPromise" variant="outline-primary">다음 공약 보기</b-button>
     </div>
@@ -14,7 +14,7 @@
 <script>
 import StakeholderPane from '~/components/StakeholderPane.vue'
 import ArticleContent from '~/components/ArticleContent.vue'
-import db from '~/firebase.js'
+import { db, fs } from '~/firebase.js'
 
 export default {
   computed: {
@@ -48,11 +48,76 @@ export default {
       //   this.$store.commit('resetPromptIdx')
       //   this.$router.push({name: 'ArticlePromptView-id', params: {id: this.id + 1}})
       // }
+    },
+    onAddPath: function (payload) {
+      let that = this
+      fs.runTransaction(function(transaction) {
+        return transaction.get(that.ref).then(function(treeDoc) {
+          let treeData = treeDoc.data()
+
+          // find implementation plan
+          let implementationPlan = treeData.children.find((child) => {
+            return child.name === payload.implementationPlan
+          })
+
+          //find effect
+          if (!implementationPlan.children) {
+            implementationPlan.children = []
+          }
+          
+          let effect = implementationPlan.children.find((child) => {
+            return child.name === payload.effect
+          })
+
+          if(!effect) {
+            implementationPlan.children.push({
+              name: payload.effect,
+              children: []
+            })
+            effect = implementationPlan.children.find((child) => {
+              return child.name === payload.effect
+            })
+          }
+
+          let stakeholder = effect.children.find((child) => {
+            return child.name === payload.stakeholder
+          })
+
+          if(!stakeholder) {
+            effect.children.push({
+              name: payload.stakeholder
+            })
+          }
+          console.log(that.treeData)
+          transaction.update(that.ref, treeData)
+        })
+      })
     }
+  },
+  data: function () {
+    return {
+      treeData: {
+        name: '',
+        children: {}
+      },
+      ref: {}
+    }
+  },
+  mounted: function () {
+    let that = this
+    fs.collection('stakeholders').where('id', '==', this.id)
+      .onSnapshot((querySnapshot) => {
+        querySnapshot.forEach(function(doc) {
+          console.log(doc)
+          that.treeData = doc.data()
+          that.ref = doc.ref
+        })
+      })
+  },
+  destroyed: function () {
+    let unsubscribe = fs.collection('stakeholders').where('id', '==', this.id)
+      .onSnapshot(() => {})
   }
-  // async asyncData: function (context) {
-  //   let { data } = await axios.get('')
-  // }
 }
 </script>
 
