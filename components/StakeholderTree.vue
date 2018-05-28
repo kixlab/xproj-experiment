@@ -51,7 +51,7 @@ export default {
           return {
             id: d.data.name,
             r: '0.5em',
-            className: `node ${d.children ? ' node--internal' : ' node--leaf'}`,
+            className: `node ${d.children ? ' node--internal' : ' node--leaf'} node--${d.depth}`,
             text: d.data.name,
             // highlight:
             //   d.id.toLowerCase().indexOf(that.search.toLowerCase()) != -1 &&
@@ -115,7 +115,7 @@ export default {
 <style scoped>
 .mySVGContainer {
   width: 100%;
-  height: 60vh;
+  height: 40vh;
 }
 
 

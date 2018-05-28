@@ -1,6 +1,7 @@
 <template>
   <div>
     <article-content :id="id"></article-content>
+    <promise-pane :id="id" :isPromptVisible="false"></promise-pane>
     <stakeholder-pane :tree-data="treeData" @add-path="onAddPath" ></stakeholder-pane>
     <div class="nextPromiseButtonDiv">
       <b-button @click="nextPromise" variant="outline-primary">다음 공약 보기</b-button>
@@ -12,6 +13,7 @@
 </template>
 
 <script>
+import PromisePane from '~/components/PromisePane.vue'
 import StakeholderPane from '~/components/StakeholderPane.vue'
 import ArticleContent from '~/components/ArticleContent.vue'
 import { db, fs } from '~/firebase.js'
@@ -27,7 +29,8 @@ export default {
   },
   components: {
     StakeholderPane,
-    ArticleContent
+    ArticleContent,
+    PromisePane
   },
   methods: {
     nextPromise: function () {
@@ -64,7 +67,7 @@ export default {
           if (!implementationPlan.children) {
             implementationPlan.children = []
           }
-          
+
           let effect = implementationPlan.children.find((child) => {
             return child.name === payload.effect
           })

@@ -1,7 +1,8 @@
 <template>
   <div>
+    다음은 공약의 예상 효과와 영향을 받을 사람들입니다.
     <stakeholder-tree :tree-data="treeData"></stakeholder-tree>
-    <stakeholder-pane-action-add-path @add-path="onAddPath" :implementation-plans="implementationPlans"></stakeholder-pane-action-add-path>
+    <stakeholder-pane-action-add-path :promise-title="promiseTitle" @add-path="onAddPath" :implementation-plans="implementationPlans"></stakeholder-pane-action-add-path>
   </div>
 </template>
 
@@ -24,6 +25,9 @@ export default {
       return Object.values(this.treeData.children).map((node) => {
         return node.name
       })
+    },
+    promiseTitle: function () {
+      return this.treeData.name
     }
   },
   data: function () {
@@ -59,38 +63,6 @@ export default {
   methods: {
     onAddPath: function (payload) {
       this.$emit('add-path', payload)
-      // // find implementation plan
-      // let implementationPlan = this.treeData.children.find((child) => {
-      //   return child.name === payload.implementationPlan
-      // })
-      // if (!implementationPlan) {
-      //   return
-      // }
-      
-      // //find effect
-      // let effect = implementationPlan.children.find((child) => {
-      //   return child.name === payload.effect
-      // })
-
-      // if(!effect) {
-      //   implementationPlan.children.push({
-      //     name: payload.effect,
-      //     children: []
-      //   })
-      //   effect = implementationPlan.children.find((child) => {
-      //     return child.name === payload.effect
-      //   })
-      // }
-
-      // let stakeholder = effect.children.find((child) => {
-      //   return child.name === payload.stakeholder
-      // })
-
-      // if(!stakeholder) {
-      //   effect.children.push({
-      //     name: payload.stakeholder
-      //   })
-      // }
     }
   }
 }

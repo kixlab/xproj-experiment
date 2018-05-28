@@ -38,9 +38,7 @@
 <script>
 import db from '~/firebase.js'
 import { hri } from 'human-readable-ids'
-import StakeholderTree from '~/components/StakeholderTree.vue'
 export default {
-  components: { StakeholderTree },
   computed: {
     userId: function () {
       return this.$store.state.userId
